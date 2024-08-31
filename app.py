@@ -14,9 +14,9 @@ def store_money():
 def transfer_money():
     return render_template('transfer_money.html')
 
-@app.route('/loop',methods=["get","post"])
+@app.route('/coconut',methods=["get","post"])
 def loop():
-    return render_template('loop.html')
+    return render_template('coconut.html')
 
 if __name__=='__main__':
     app.run()
