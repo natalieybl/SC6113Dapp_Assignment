@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAPP</title>
      <style>
+        /* Basic styling for the body */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f0f0;
@@ -16,6 +17,7 @@
             height: 100vh;
         }
 
+        /* Styling for the container that holds the content */
         .container {
             background-color: #ffffff;
             padding: 30px;
@@ -26,12 +28,14 @@
             text-align: center;
         }
 
+        /* Styling for the header */
         h2 {
             font-size: 24px;
             margin-bottom: 20px;
             color: #333;
         }
 
+        /* Styling for the input fields and buttons */
         input, button {
             width: 100%;
             padding: 10px;
@@ -41,6 +45,7 @@
             font-size: 16px;
         }
 
+        /* Styling for the buttons */
         button {
             background-color: #007bff;
             color: white;
@@ -48,10 +53,12 @@
             cursor: pointer;
         }
 
+        /* Hover effect for the buttons */
         button:hover {
             background-color: #0056b3;
         }
 
+        /* Styling for the paragraphs */
         p {
             margin-top: 15px;
             font-size: 14px;
@@ -59,6 +66,7 @@
             text-align: left;
         }
 
+        /* Responsive styling for smaller screens */
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -80,18 +88,25 @@
     <h2>Welcome to DAPP</h2>
     <br>
 
+    <!-- Form to navigate to store money page -->
     <form action = "/store_money" method="post">
         <input type="submit" value="Store Money">
     </form>
     <br>
+    
+    <!-- Form to navigate to transfer money page -->
     <form action = "/transfer_money" method="post">
         <input type="submit" value="Transfer Money">
     </form>
     <br>
-    <form action = "/coconut" method="post">
-        <input type="submit" value="Coconut Vending Machine">
+    
+    <!-- Form to navigate to a loop functionality -->
+    <form action = "/loop" method="post">
+        <input type="submit" value="Loop">
     </form>
     <br>
+    
+    <!-- Display images -->
     <img src="https://raw.githubusercontent.com/natalieybl/SC6113Dapp_Demo/main/templates/logo.jpg" alt="testing of image" width="100" height="100">
     <img src="https://raw.githubusercontent.com/natalieybl/SC6113Dapp_Demo/main/templates/hi.gif" alt="testing of image" width="100" height="100">
      </div>
