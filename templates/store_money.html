@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Store Money</title>
     <style>
+        /* Basic styling for the body */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f0f0;
@@ -16,6 +17,7 @@
             height: 100vh;
         }
 
+        /* Styling for the container that holds the content */
         .container {
             background-color: #ffffff;
             padding: 30px;
@@ -26,12 +28,14 @@
             text-align: center;
         }
 
+        /* Styling for the header */
         h2 {
             font-size: 24px;
             margin-bottom: 20px;
             color: #333;
         }
 
+        /* Styling for input fields and buttons */
         input, button {
             width: 100%;
             padding: 10px;
@@ -41,6 +45,7 @@
             font-size: 16px;
         }
 
+        /* Styling for the buttons */
         button {
             background-color: #007bff;
             color: white;
@@ -48,10 +53,12 @@
             cursor: pointer;
         }
 
+        /* Hover effect for buttons */
         button:hover {
             background-color: #0056b3;
         }
 
+        /* Styling for the paragraph */
         p {
             margin-top: 15px;
             font-size: 14px;
@@ -59,6 +66,7 @@
             text-align: left;
         }
 
+        /* Responsive styling for smaller screens */
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -71,27 +79,31 @@
             input, button {
                 font-size: 14px;
             }
-
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Welcome to Store Money</h2>
+        <!-- Input field for the amount of money to store -->
         <input type="number" id="moneyInput" placeholder="Enter amount to store">
+        <!-- Button to trigger the storeValue function -->
         <button class="btn" onclick="storeValue()">Store Value</button>
+        <!-- Button to trigger the getValue function -->
         <button class="btn" onclick="getValue()">Get Stored Value</button>
+        <!-- Paragraph to display the stored value -->
         <p id="storedValue"></p>
         <br>
-        <form action = "/" method="post">
-        <input type="submit" value="Back to Main">
+        <!-- Form to navigate back to the main page -->
+        <form action="/" method="post">
+            <input type="submit" value="Back to Main">
         </form>
     </div>
 
-
-    
+    <!-- Import Web3.js library for interacting with the Ethereum blockchain -->
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
     <script>
+        // Smart contract address and ABI (Application Binary Interface)
         const contractAddress = '0x9d63fd56fab58f414fd3a4b27ae0e099091ba89d'; // Replace with your contract address
         const contractABI = [
             {
@@ -122,21 +134,24 @@
             }
         ];
 
+        // Initialize Web3 and the smart contract
         const web3 = new Web3(Web3.givenProvider);
         const contract = new web3.eth.Contract(contractABI, contractAddress);
 
+        // Function to store the value in the smart contract
         async function storeValue() {
-            const accounts = await web3.eth.requestAccounts();
-            const value = document.getElementById('moneyInput').value;
+            const accounts = await web3.eth.requestAccounts(); // Request user's Ethereum account
+            const value = document.getElementById('moneyInput').value; // Get the input value from the field
             console.log("value: " + value);
             console.log("accounts[0] " + accounts[0]);
-            await contract.methods.store_m(value).send({from: accounts[0]});
+            await contract.methods.store_m(value).send({ from: accounts[0] }); // Call the store_m function in the contract to store the value
         }
 
+        // Function to retrieve the stored value from the smart contract
         async function getValue() {
-            const storedValue = await contract.methods.view_m().call();
+            const storedValue = await contract.methods.view_m().call(); // Call the view_m function in the contract to get the stored value
             console.log("stored value " + storedValue);
-            document.getElementById('storedValue').innerText = "Stored Value: " + storedValue;
+            document.getElementById('storedValue').innerText = "Stored Value: " + storedValue; // Display the stored value on the page
         }
     </script>
 </body>
