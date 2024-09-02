@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	 <style>
+    <style>
+        /* Basic styling for the body */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f0f0;
@@ -15,6 +16,7 @@
             height: 100vh;
         }
 
+        /* Styling for the container that holds the content */
         .container {
             background-color: #ffffff;
             padding: 30px;
@@ -25,12 +27,14 @@
             text-align: center;
         }
 
+        /* Styling for the header */
         h2 {
             font-size: 24px;
             margin-bottom: 20px;
             color: #333;
         }
 
+        /* Styling for input fields and buttons */
         input, button {
             width: 100%;
             padding: 10px;
@@ -40,6 +44,7 @@
             font-size: 16px;
         }
 
+        /* Styling for the buttons */
         button {
             background-color: #007bff;
             color: white;
@@ -47,10 +52,12 @@
             cursor: pointer;
         }
 
+        /* Hover effect for buttons */
         button:hover {
             background-color: #0056b3;
         }
 
+        /* Styling for the paragraph */
         p {
             margin-top: 15px;
             font-size: 14px;
@@ -58,6 +65,7 @@
             text-align: left;
         }
 
+        /* Responsive styling for smaller screens */
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -70,130 +78,141 @@
             input, button {
                 font-size: 14px;
             }
-
-      }
+        }
     </style>
-</head>  
+</head>
 <body>
 <div class="container">
-<h2>Welcome to Transfer Money</h2>
+    <h2>Welcome to Transfer Money</h2>
 
-<input type="text" id="payer_id"  placeholder="Please enter payer address">
-<br>
-<input type="text" id="payee_id"  placeholder="Please enter payee address">
-<br>
-<input type="number" id="amount_id"  placeholder="Please enter amount">
-<br>
-<button class="btn" onclick="transfer()">Trasfer Money</button>
-<br>
-<button class="btn" onclick="view_transaction()">View Transaction</button>
-<p id="view_payer_id"></p>
-<p id="view_payee_id"></p>
-<p id="view_amount_id"></p>
-<br>
-<form action = "/" method="post">
-<input type="submit" value="Back to Main">
-</form>
-  </div>
+    <!-- Input field for payer's address -->
+    <input type="text" id="payer_id" placeholder="Please enter payer address">
+    <br>
+    <!-- Input field for payee's address -->
+    <input type="text" id="payee_id" placeholder="Please enter payee address">
+    <br>
+    <!-- Input field for the amount to transfer -->
+    <input type="number" id="amount_id" placeholder="Please enter amount">
+    <br>
+    <!-- Button to trigger the money transfer -->
+    <button class="btn" onclick="transfer()">Transfer Money</button>
+    <br>
+    <!-- Button to view the last transaction -->
+    <button class="btn" onclick="view_transaction()">View Transaction</button>
+    <!-- Paragraphs to display the transaction details -->
+    <p id="view_payer_id"></p>
+    <p id="view_payee_id"></p>
+    <p id="view_amount_id"></p>
+    <br>
+    <!-- Button to navigate back to the main page -->
+    <form action="/" method="post">
+        <input type="submit" value="Back to Main">
+    </form>
+</div>
+
+<!-- Import Web3.js library for interacting with the Ethereum blockchain -->
 <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
 <script>
-   //const contractAddress = '0x96B4e8Ac6cdDBf025bc6BcBCbBe059B2aBc9926b'; // Replace with your contract address
-        const contract_address = '0xc2AbD516d3ca819c9dddfbC1Db94C1B4199E3C36';
-        const contract_abi = 
-            [
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [],
-		"name": "check_transaction",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_wallet",
-				"type": "address"
-			}
-		],
-		"name": "getBalance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount_to_transfer",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "payer_address",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "payee_address",
-				"type": "address"
-			}
-		],
-		"name": "weixin",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	}
-];
+    // Smart contract address and ABI (Application Binary Interface)
+    const contract_address = '0xc2AbD516d3ca819c9dddfbC1Db94C1B4199E3C36';
+    const contract_abi = [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "check_transaction",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_wallet",
+                    "type": "address"
+                }
+            ],
+            "name": "getBalance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount_to_transfer",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "payer_address",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "payee_address",
+                    "type": "address"
+                }
+            ],
+            "name": "weixin",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ];
 
+    // Initialize Web3 and the smart contract
     const web3 = new Web3(Web3.givenProvider);
-    console.log(web3);
-    const contract = new web3.eth.Contract(contract_abi,contract_address);
-    console.log(contract);
+    console.log(web3); // Log the web3 instance for debugging
+    const contract = new web3.eth.Contract(contract_abi, contract_address);
+    console.log(contract); // Log the contract instance for debugging
 
-    async function transfer(){
-        const accounts = await web3.eth.requestAccounts();
-        console.log(accounts);
-        const payer_address = document.getElementById("payer_id").value;
-        const payee_address = document.getElementById("payee_id").value;
-        const amount = document.getElementById("amount_id").value;
-        console.log(payer_address,payee_address,amount);
-        await contract.methods.weixin(amount,payer_address,payee_address).send({from:accounts[0]});
+    // Function to transfer money between two addresses
+    async function transfer() {
+        const accounts = await web3.eth.requestAccounts(); // Request the user's Ethereum account
+        console.log(accounts); // Log the accounts for debugging
+        const payer_address = document.getElementById("payer_id").value; // Get the payer's address from input
+        const payee_address = document.getElementById("payee_id").value; // Get the payee's address from input
+        const amount = document.getElementById("amount_id").value; // Get the amount from input
+        console.log(payer_address, payee_address, amount); // Log the input values for debugging
+        await contract.methods.weixin(amount, payer_address, payee_address).send({ from: accounts[0] }); // Call the smart contract's weixin function to transfer money
     }
 
+    // Function to view the last transaction details
     async function view_transaction() {
-        const result = await contract.methods.check_transaction().call();
-        const payer_address = result[0];
-        const payee_address = result[1];
-        const amount = result[2];
+        const result = await contract.methods.check_transaction().call(); // Call the smart contract's check_transaction function
+        const payer_address = result[0]; // Get the payer's address from the result
+        const payee_address = result[1]; // Get the payee's address from the result
+        const amount = result[2]; // Get the amount from the result
 
+        // Display the transaction details on the page
         document.getElementById("view_payer_id").innerText = "Payer Address : " + payer_address;
         document.getElementById("view_payee_id").innerText = "Payee Address : " + payee_address;
         document.getElementById("view_amount_id").innerText = "Amount : " + amount;
