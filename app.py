@@ -1,23 +1,32 @@
-from flask import Flask,render_template,request
+from flask import Flask, render_template, request, redirect, url_for  # Import necessary Flask modules
 
-app=Flask(__name__)
+app = Flask(__name__)  # Create a Flask application instance
 
-@app.route('/',methods=["get","post"])
+# Define a route for the home page
+@app.route('/', methods=["GET","POST"])
 def index():
-    return render_template('index.html')
+    return render_template('index.html')  # Render the index.html template
 
-@app.route('/store_money',methods=["get","post"])
+# Define a route to store money
+@app.route('/store_money', methods=["GET","POST"])
 def store_money():
-    return render_template('store_money.html')
+    # Here, you would typically handle the logic for storing money
+    # This could involve interacting with a blockchain, database, or another backend service
+    return render_template('store_money.html')  # Render the store_money.html template
 
-@app.route('/transfer_money',methods=["get","post"])
+# Define a route to transfer money
+@app.route('/transfer_money', methods=["GET","POST"])
 def transfer_money():
-    return render_template('transfer_money.html')
+    # Here, you would typically handle the logic for transferring money
+    # This could involve sending data to a blockchain or processing a transaction
+    return render_template('transfer_money.html')  # Render the transfer_money.html template
 
-@app.route('/coconut',methods=["get","post"])
-def loop():
-    return render_template('coconut.html')
+# Define a route to coconut vending machine
+@app.route('/coconut', methods=["GET","POST"])
+def coconut():
+    # Here, you would typically handle the logic for looping or any related feature
+    return render_template('coconut.html')  # Render the transfer_money.html template
 
 if __name__=='__main__':
+    # start the Flask server to run the program
     app.run()
-    #app.run(host='0.0.0.0', port=8000, debug=True)
